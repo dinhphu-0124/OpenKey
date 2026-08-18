@@ -35,6 +35,11 @@ static CFRunLoopSourceRef runLoopSource;
 }
 
 +(BOOL)initEventTap {
+#ifdef DEBUG
+    // In DEBUG mode, do NOT hook keyboard events or start Telex engine
+    // to allow safe UI editing and previewing without conflicting with /Applications/OpenKey.app
+    return YES;
+#else
     if (_isInited)
         return true;
     
@@ -75,6 +80,7 @@ static CFRunLoopSourceRef runLoopSource;
     CGEventTapEnable(eventTap, true);
 
     return YES;
+#endif
 }
 
 +(BOOL)stopEventTap {

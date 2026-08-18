@@ -24,6 +24,24 @@ extern AppDelegate* appDelegate;
 
     self.SHotKey.Parent = self;
     [self fillData];
+    
+    // Apply modern macOS native icons
+    if (@available(macOS 11.0, *)) {
+        NSImageSymbolConfiguration *config = [NSImageSymbolConfiguration configurationWithPointSize:12 weight:NSFontWeightMedium];
+        NSImage *convertImg = [NSImage imageWithSystemSymbolName:@"arrow.triangle.2.circlepath" accessibilityDescription:@"Chuyển mã"];
+        if (convertImg) {
+            self.ConvertButton.image = [convertImg imageWithSymbolConfiguration:config];
+            self.ConvertButton.imagePosition = NSImageLeft;
+        }
+        NSImage *closeImg = [NSImage imageWithSystemSymbolName:@"xmark.circle" accessibilityDescription:@"Đóng"];
+        if (closeImg) {
+            self.OKButton.image = [closeImg imageWithSymbolConfiguration:config];
+            self.OKButton.imagePosition = NSImageLeft;
+        }
+    } else {
+        self.ConvertButton.image = [NSImage imageNamed:NSImageNameRefreshTemplate];
+        self.OKButton.image = [NSImage imageNamed:NSImageNameStopProgressFreestandingTemplate];
+    }
 }
 
 -(void)fillData {

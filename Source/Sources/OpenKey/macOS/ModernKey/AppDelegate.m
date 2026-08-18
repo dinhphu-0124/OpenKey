@@ -115,7 +115,24 @@ extern bool convertToolDontAlertWhenCompleted;
     //set quick tooltip
     [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt: 50]
                                               forKey: @"NSInitialToolTipDelay"];
+
+#ifdef DEBUG
+    // =========================================================================
+    // DEBUG / UI-PREVIEW MODE:
+    // 1. Không tắt app nếu /Applications/OpenKey.app đang chạy
+    // 2. Không hỏi quyền Trợ năng (Accessibility)
+    // 3. Không bắt phím / không khởi chạy Telex engine
+    // 4. Mở ngay cửa sổ giao diện chính để xem và chỉnh sửa giao diện trực quan
+    // =========================================================================
+    [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
+    [self createStatusBarMenu];
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self onControlPanelSelected];
+        [NSApp activateIgnoringOtherApps:YES];
+    });
+    return;
+#else
     //check whether this app has been launched before that or not
     NSArray* runningApp = [[NSWorkspace sharedWorkspace] runningApplications];
     if ([runningApp containsObject:OPENKEY_BUNDLE]) { //if already running -> exit
@@ -165,6 +182,7 @@ extern bool convertToolDontAlertWhenCompleted;
     //correct run on startup
     NSInteger val = [[NSUserDefaults standardUserDefaults] integerForKey:@"RunOnStartup"];
     [appDelegate setRunOnStartup:val];
+#endif
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
@@ -179,12 +197,24 @@ extern bool convertToolDontAlertWhenCompleted;
 -(void) createStatusBarMenu {
     NSStatusBar *statusBar = [NSStatusBar systemStatusBar];
     statusItem = [statusBar statusItemWithLength:NSVariableStatusItemLength];
+#ifdef DEBUG
+    statusItem.button.title = @" 🛠 [Debug UI]";
+    statusItem.button.image = [NSImage imageNamed:NSImageNamePreferencesGeneral];
+    [NSApp.dockTile setBadgeLabel:@"DEBUG"];
+#else
     statusItem.button.image = [NSImage imageNamed:@"Status"];
     statusItem.button.alternateImage = [NSImage imageNamed:@"StatusHighlighted"];
+#endif
     
     theMenu = [[NSMenu alloc] initWithTitle:@""];
     [theMenu setAutoenablesItems:NO];
     
+#ifdef DEBUG
+    NSMenuItem* dbgHeader = [theMenu addItemWithTitle:@"🛠 OpenKey (Bản Debug - Xem UI)" action:nil keyEquivalent:@""];
+    [dbgHeader setEnabled:NO];
+    [theMenu addItem:[NSMenuItem separatorItem]];
+#endif
+
     menuInputMethod = [theMenu addItemWithTitle:@"Bật Tiếng Việt"
                                                      action:@selector(onInputMethodSelected)
                                               keyEquivalent:@""];
@@ -269,14 +299,14 @@ extern bool convertToolDontAlertWhenCompleted;
     vFreeMark = 0; [[NSUserDefaults standardUserDefaults] setInteger:vFreeMark forKey:@"FreeMark"];
     vCheckSpelling = 1; [[NSUserDefaults standardUserDefaults] setInteger:vCheckSpelling forKey:@"Spelling"];
     vCodeTable = 0; [[NSUserDefaults standardUserDefaults] setInteger:vCodeTable forKey:@"CodeTable"];
-    vSwitchKeyStatus = DEFAULT_SWITCH_STATUS; [[NSUserDefaults standardUserDefaults] setInteger:vCodeTable forKey:@"SwitchKeyStatus"];
+    vSwitchKeyStatus = DEFAULT_SWITCH_STATUS; [[NSUserDefaults standardUserDefaults] setInteger:vSwitchKeyStatus forKey:@"SwitchKeyStatus"];
     vQuickTelex = 0; [[NSUserDefaults standardUserDefaults] setInteger:vQuickTelex forKey:@"QuickTelex"];
     vUseModernOrthography = 0; [[NSUserDefaults standardUserDefaults] setInteger:vUseModernOrthography forKey:@"ModernOrthography"];
     vRestoreIfWrongSpelling = 0; [[NSUserDefaults standardUserDefaults] setInteger:vRestoreIfWrongSpelling forKey:@"RestoreIfInvalidWord"];
     vFixRecommendBrowser = 1; [[NSUserDefaults standardUserDefaults] setInteger:vFixRecommendBrowser forKey:@"FixRecommendBrowser"];
     vUseMacro = 1; [[NSUserDefaults standardUserDefaults] setInteger:vUseMacro forKey:@"UseMacro"];
     vUseMacroInEnglishMode = 0; [[NSUserDefaults standardUserDefaults] setInteger:vUseMacroInEnglishMode forKey:@"UseMacroInEnglishMode"];
-    vSendKeyStepByStep = 0;[[NSUserDefaults standardUserDefaults] setInteger:vUseMacroInEnglishMode forKey:@"SendKeyStepByStep"];
+    vSendKeyStepByStep = 0;[[NSUserDefaults standardUserDefaults] setInteger:vSendKeyStepByStep forKey:@"SendKeyStepByStep"];
     vUseSmartSwitchKey = 1;[[NSUserDefaults standardUserDefaults] setInteger:vUseSmartSwitchKey forKey:@"UseSmartSwitchKey"];
     vUpperCaseFirstChar = 0;[[NSUserDefaults standardUserDefaults] setInteger:vUpperCaseFirstChar forKey:@"UpperCaseFirstChar"];
     vTempOffSpelling = 0;[[NSUserDefaults standardUserDefaults] setInteger:vTempOffSpelling forKey:@"vTempOffSpelling"];
@@ -339,6 +369,7 @@ extern bool convertToolDontAlertWhenCompleted;
 - (void) fillData {
     //fill data
     NSInteger intInputMethod = [[NSUserDefaults standardUserDefaults] integerForKey:@"InputMethod"];
+#ifndef DEBUG
     NSInteger grayIcon = [[NSUserDefaults standardUserDefaults] integerForKey:@"GrayIcon"];
     if (intInputMethod == 1) {
         [menuInputMethod setState:NSControlStateValueOn];
@@ -351,6 +382,10 @@ extern bool convertToolDontAlertWhenCompleted;
         [statusItem.button.image setTemplate:(grayIcon ? YES : NO)];
         statusItem.button.alternateImage = [NSImage imageNamed:@"StatusHighlightedEng"];
     }
+#else
+    statusItem.button.title = @" 🛠 [Debug UI]";
+    statusItem.button.image = [NSImage imageNamed:NSImageNamePreferencesGeneral];
+#endif
     vLanguage = (int)intInputMethod;
     
     NSInteger intInputType = [[NSUserDefaults standardUserDefaults] integerForKey:@"InputType"];

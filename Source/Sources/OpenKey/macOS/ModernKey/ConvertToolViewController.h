@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSPopUpButton *ToCode;
 @property (weak) IBOutlet NSButton *ReverseCode;
 
+@property (weak) IBOutlet NSButton *ConvertButton;
+@property (weak) IBOutlet NSButton *OKButton;
+
 @end
 
 NS_ASSUME_NONNULL_END
