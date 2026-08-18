@@ -60,7 +60,7 @@ extern int vPerformLayoutCompat;
  
     NSRect parentRect = self.viewParent.frame;
     parentRect.size.width = 640;
-    parentRect.size.height = 820;
+    parentRect.size.height = 540;
     self.viewParent.frame = parentRect;
     
     //set correct tabgroup
