@@ -1,12 +1,20 @@
-# DinhPhuu_KEY — Bộ gõ Tiếng Việt cho macOS (v1.0.0)
+## 1. Cách cài đặt / dùng ngay (không cần build)
 
-Bản OpenKey đã được DinhPhu tùy chỉnh, sửa lỗi và đóng gói lại để chạy ổn định trên các phiên bản macOS mới.
+1. Tải file `OpenKey.dmg` ở mục [Releases](https://github.com/dinhphu-0124/OpenKey/releases) về máy.
+2. Mở file `OpenKey.dmg`.
+3. Trong cửa sổ hiện ra, kéo biểu tượng `OpenKey` vào thư mục `Applications`.
+4. Mở thư mục `Applications` và double-click `OpenKey`.
+5. Nếu macOS hiện cảnh báo "OpenKey không thể mở vì nhà phát triển không thể được xác minh" (vì app không được Apple công chứng/notarize) → chuột phải vào `OpenKey` → chọn **Open** → chọn **Open** một lần nữa. Chỉ cần làm bước này lần đầu.
+6. Hộp thoại "OpenKey cần bạn cấp quyền để có thể hoạt động!" hiện ra → bấm **Cấp quyền**.
+7. Vào System Settings → Privacy & Security → Accessibility → tìm **OpenKey** → bật công tắc.
+8. Mở lại `OpenKey`.
+9. Nếu tiến trình nền `OpenKeyHelper` chưa tự chạy: mở **OpenKey** → vào mục **Hệ thống** → tắt rồi bật lại tùy chọn **Khởi động cùng macOS**.
 
-Dựa trên [OpenKey](https://github.com/tuyenvm/OpenKey) — phần mềm gõ tiếng Việt mã nguồn mở, giấy phép **GPLv3**, tác giả gốc **Tuyền Mai** và cộng đồng OpenKey.
+Sau khi hoàn tất, OpenKey có thể được sử dụng bình thường.
 
----
+> `App/OpenKey.app` trong repo vẫn được giữ nguyên cho ai muốn build hoặc kiểm tra thủ công; file `.dmg` trên trang Releases được đóng gói tự động từ đúng file này mỗi khi có bản phát hành mới (xem `.github/workflows/release.yml`).
 
-## 1. Nội dung thư mục
+## 2. Nội dung thư mục
 
 ```
 DinhPhuu_KEY/
@@ -27,7 +35,7 @@ DinhPhuu_KEY/
 
 Dự án này chỉ còn tối ưu cho **macOS**. Phần mã nguồn Windows/Linux của bản OpenKey gốc đã được gỡ bỏ khỏi bản này.
 
-## 2. Những gì bản này khác với OpenKey gốc
+## 3. Những gì bản này khác với OpenKey gốc
 
 **Tính năng mới:**
 - Tự động viết hoa chữ cái đầu tiên ngay khi bắt đầu gõ vào một ô nhập liệu mới (bấm chuột vào ô mới), không chỉ sau dấu chấm câu như bản gốc.
@@ -48,7 +56,7 @@ Dự án này chỉ còn tối ưu cho **macOS**. Phần mã nguồn Windows/Lin
 
 **Đánh đổi cần biết:** vì OpenKey không đọc nội dung ô văn bản để biết ô đó có đang trống hay không, tính năng tự viết hoa dùng "click chuột" làm tín hiệu bắt đầu phiên gõ mới. Hệ quả: nếu bạn click vào **giữa** một đoạn văn bản có sẵn để sửa (không phải ô trống), ký tự gõ tiếp theo cũng sẽ bị viết hoa nhầm.
 
-## 3. Cách build lại từ source
+## 4. Cách build lại từ source
 
 Cần máy Mac có cài **Xcode đầy đủ** (không phải chỉ Command Line Tools).
 
@@ -67,21 +75,7 @@ App build xong nằm ở: `/tmp/openkey_build/Build/Products/Release/OpenKey.app
 - Nếu **người khác build lại trên máy của họ**: Xcode sẽ tự tạo chứng chỉ Development mới gắn với Apple ID của họ. Lần đầu chạy app, macOS sẽ hỏi cấp quyền Accessibility — cứ cấp bình thường (System Settings > Privacy & Security > Accessibility). Từ lần build thứ 2 trở đi trên máy đó, quyền sẽ giữ ổn định vì Team ID không đổi.
 - **Không nên** build bằng chữ ký ad-hoc (`CODE_SIGN_IDENTITY="-"`) để dùng lâu dài — mỗi lần build lại, quyền Accessibility đã cấp sẽ bị macOS coi là không hợp lệ và phải cấp lại.
 
-## 4. Cách cài đặt / dùng ngay (không cần build)
 
-1. Tải file `OpenKey.dmg` ở mục [Releases](https://github.com/dinhphu-0124/OpenKey/releases) về máy.
-2. Mở file `OpenKey.dmg`.
-3. Trong cửa sổ hiện ra, kéo biểu tượng `OpenKey` vào thư mục `Applications`.
-4. Mở thư mục `Applications` và double-click `OpenKey`.
-5. Nếu macOS hiện cảnh báo "OpenKey không thể mở vì nhà phát triển không thể được xác minh" (vì app không được Apple công chứng/notarize) → chuột phải vào `OpenKey` → chọn **Open** → chọn **Open** một lần nữa. Chỉ cần làm bước này lần đầu.
-6. Hộp thoại "OpenKey cần bạn cấp quyền để có thể hoạt động!" hiện ra → bấm **Cấp quyền**.
-7. Vào System Settings → Privacy & Security → Accessibility → tìm **OpenKey** → bật công tắc.
-8. Mở lại `OpenKey`.
-9. Nếu tiến trình nền `OpenKeyHelper` chưa tự chạy: mở **OpenKey** → vào mục **Hệ thống** → tắt rồi bật lại tùy chọn **Khởi động cùng macOS**.
-
-Sau khi hoàn tất, OpenKey có thể được sử dụng bình thường.
-
-> `App/OpenKey.app` trong repo vẫn được giữ nguyên cho ai muốn build hoặc kiểm tra thủ công; file `.dmg` trên trang Releases được đóng gói tự động từ đúng file này mỗi khi có bản phát hành mới (xem `.github/workflows/release.yml`).
 
 ## 5. Giấy phép — GPLv3
 
@@ -97,3 +91,12 @@ Khi chia sẻ bản đã sửa này cho người khác, bạn **bắt buộc**:
 - Giữ nguyên giấy phép GPLv3 cho bản phân phối lại.
 
 Gói `DinhPhuu_KEY` này đã tuân thủ đủ các điều trên.
+
+------
+# DinhPhuu_KEY — Bộ gõ Tiếng Việt cho macOS (v1.0.0)
+
+Bản OpenKey đã được DinhPhu tùy chỉnh, sửa lỗi và đóng gói lại để chạy ổn định trên các phiên bản macOS mới.
+
+Dựa trên [OpenKey](https://github.com/tuyenvm/OpenKey) — phần mềm gõ tiếng Việt mã nguồn mở, giấy phép **GPLv3**, tác giả gốc **Tuyền Mai** và cộng đồng OpenKey.
+
+---
