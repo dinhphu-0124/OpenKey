@@ -211,10 +211,12 @@ Nếu bạn không muốn sử dụng ứng dụng nữa và muốn dọn dẹp 
    * Mở Finder, nhấn tổ hợp phím `⌘ Command + ⇧ Shift + G` và dán đường dẫn: `~/Library/Preferences/`
    * Tìm và xóa file: `com.tuyenmai.openkey.plist`
    * Truy cập **System Settings → General → Login Items** và xóa bỏ dòng **OpenKeyHelper** nếu còn sót lại.
-  
-## Tác giả
-- Bản gốc: Mai Vũ Tuyên.
-- Phát triển lại: Dinh Phu
-- Mọi góp ý, gửi cho mình qua emai dinhphuhcmus15@gmail.com
-- Zalo: 0387136878
 
+---
+
+## 3. Giấy phép — GPLv3
+
+OpenKey phát hành theo giấy phép **GPLv3**
+- Dựa trên: <https://github.com/tuyenvm/OpenKey> - tác giả gốc: Tuyền Mai và cộng đồng OpenKey (GPLv3).
+- Bản chỉnh sửa bởi: **DinhPhu** © 2026
+- Mọi góp ý, gửi cho mình qua emai: dinhphuhcmus15@gmail.com
