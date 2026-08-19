@@ -211,3 +211,10 @@ Nếu bạn không muốn sử dụng ứng dụng nữa và muốn dọn dẹp 
    * Mở Finder, nhấn tổ hợp phím `⌘ Command + ⇧ Shift + G` và dán đường dẫn: `~/Library/Preferences/`
    * Tìm và xóa file: `com.tuyenmai.openkey.plist`
    * Truy cập **System Settings → General → Login Items** và xóa bỏ dòng **OpenKeyHelper** nếu còn sót lại.
+  
+## Tác giả
+- Bản gốc: Mai Vũ Tuyên.
+- Phát triển lại: Dinh Phu
+- Mọi góp ý, gửi cho mình qua emai dinhphuhcmus15@gmail.com
+- Zalo: 0387136878
+
