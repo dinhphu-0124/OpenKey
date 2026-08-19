@@ -57,6 +57,24 @@ extern int vPerformLayoutCompat;
   tabbuttons =
       [NSArray arrayWithObjects:self.tabbuttonPrimary, self.tabbuttonMacro,
                                 self.tabbuttonSystem, self.tabbuttonInfo, nil];
+
+  // Dùng icon SF Symbol chuẩn macOS thay cho icon cũ không đúng ngữ nghĩa
+  // (NSQuickLookTemplate / NSTouchBarTextListTemplate) hoặc icon bitmap đời cũ.
+  if (@available(macOS 11.0, *)) {
+    self.tabbuttonPrimary.image =
+        [NSImage imageWithSystemSymbolName:@"keyboard"
+                   accessibilityDescription:@"Bộ gõ"];
+    self.tabbuttonMacro.image =
+        [NSImage imageWithSystemSymbolName:@"list.bullet.rectangle"
+                   accessibilityDescription:@"Gõ tắt"];
+    self.tabbuttonSystem.image =
+        [NSImage imageWithSystemSymbolName:@"gearshape"
+                   accessibilityDescription:@"Hệ thống"];
+    self.tabbuttonInfo.image =
+        [NSImage imageWithSystemSymbolName:@"info.circle"
+                   accessibilityDescription:@"Thông tin"];
+  }
+
   tabViewRect = self.tabviewPrimary.frame;
   for (NSBox *b in tabviews) {
     b.frame = tabViewRect;
