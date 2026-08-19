@@ -1,3 +1,11 @@
+------
+# DinhPhuu_KEY — Bộ gõ Tiếng Việt cho macOS (v1.0.0)
+
+Bản OpenKey đã được DinhPhuu tùy chỉnh, sửa lỗi và đóng gói lại để chạy ổn định trên các phiên bản macOS mới.
+
+Dựa trên [OpenKey](https://github.com/tuyenvm/OpenKey) — phần mềm gõ tiếng Việt mã nguồn mở, giấy phép **GPLv3**, tác giả gốc **Tuyền Mai** và cộng đồng OpenKey.
+
+------
 ## 1. Cách cài đặt / dùng ngay (không cần build)
 
 1. Tải file `OpenKey.dmg` ở mục [Releases](https://github.com/dinhphu-0124/OpenKey/releases) về máy.
@@ -91,12 +99,3 @@ Khi chia sẻ bản đã sửa này cho người khác, bạn **bắt buộc**:
 - Giữ nguyên giấy phép GPLv3 cho bản phân phối lại.
 
 Gói `DinhPhuu_KEY` này đã tuân thủ đủ các điều trên.
-
-------
-# DinhPhuu_KEY — Bộ gõ Tiếng Việt cho macOS (v1.0.0)
-
-Bản OpenKey đã được DinhPhu tùy chỉnh, sửa lỗi và đóng gói lại để chạy ổn định trên các phiên bản macOS mới.
-
-Dựa trên [OpenKey](https://github.com/tuyenvm/OpenKey) — phần mềm gõ tiếng Việt mã nguồn mở, giấy phép **GPLv3**, tác giả gốc **Tuyền Mai** và cộng đồng OpenKey.
-
----
