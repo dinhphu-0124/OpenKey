@@ -1,9 +1,8 @@
-# DinhPhuu_KEY
+# DinhPhuu_KEY — Bộ gõ Tiếng Việt cho macOS (v1.0.0)
 
-Bản OpenKey đã được vá (patch) để **tự viết hoa chữ cái đầu tiên ngay khi bắt đầu gõ vào một ô nhập liệu mới** — không chỉ sau dấu `.` như bản gốc.
+Bản OpenKey đã được DinhPhu tùy chỉnh, sửa lỗi và đóng gói lại để chạy ổn định trên các phiên bản macOS mới.
 
-Dựa trên [OpenKey](https://github.com/tuyenvm/OpenKey) phiên bản 2.0.5 (mã nguồn mở, giấy phép GPLv3).
-Repository: <https://github.com/dinhphu-0124/OpenKey>
+Dựa trên [OpenKey](https://github.com/tuyenvm/OpenKey) — phần mềm gõ tiếng Việt mã nguồn mở, giấy phép **GPLv3**, tác giả gốc **Tuyền Mai** và cộng đồng OpenKey.
 
 ---
 
@@ -20,28 +19,33 @@ DinhPhuu_KEY/
     ├── version.json
     └── Sources/OpenKey/
         ├── engine/          <- Engine gõ tiếng Việt (C++, dùng chung mọi nền tảng)
-        ├── macOS/           <- Project Xcode cho macOS (đã patch)
+        ├── macOS/           <- Project Xcode cho macOS (đã tùy chỉnh)
         │   ├── OpenKey.xcodeproj
         │   ├── ModernKey/           <- App chính (OpenKey.app)
-        │   ├── OpenKeyHelper/       <- Helper chạy nền (xử lý gõ phím thật)
-        │   └── OpenKeyUpdate/       <- (thiếu resource gốc, xem mục 4)
+        │   └── OpenKeyHelper/       <- Helper chạy nền (khởi động cùng máy)
         ├── win32/           <- Bản Windows (không dùng ở đây)
         └── linux/
 ```
 
-## 2. Đã thay đổi gì so với bản gốc
+## 2. Những gì bản này khác với OpenKey gốc
 
-| File | Thay đổi | Vì sao |
-|---|---|---|
-| `engine/Engine.h` | Thêm khai báo `requestCapitalizeNextChar()` | Hàm mới để yêu cầu viết hoa ký tự tiếp theo |
-| `engine/Engine.cpp` | Thêm hàm `requestCapitalizeNextChar()`, gọi trong `vKeyInit()` | Đặt trạng thái "sẵn sàng viết hoa" ngay khi engine khởi tạo |
-| `macOS/ModernKey/OpenKey.mm` | Gọi `requestCapitalizeNextChar()` trong `RequestNewSession()` (khi phát hiện **click chuột**) | Click chuột = dấu hiệu bắt đầu gõ vào ô mới → ký tự tiếp theo sẽ tự viết hoa |
-| `macOS/ModernKey/MJAccessibilityUtils.m` | Bỏ đường gọi hàm `AXAPIEnabled()` đã cũ | Hàm này đã bị Apple gỡ khỏi SDK macOS mới, không compile được nữa |
-| `macOS/OpenKey.xcodeproj/project.pbxproj` | Bỏ bước nhúng `OpenKeyUpdate.app` khỏi target chính `OpenKey` | Thư mục `OpenKeyUpdate` (bộ tự cập nhật) bị thiếu file trong gói mã nguồn tải từ GitHub, không build được |
+**Tính năng mới:**
+- Tự động viết hoa chữ cái đầu tiên ngay khi bắt đầu gõ vào một ô nhập liệu mới (bấm chuột vào ô mới), không chỉ sau dấu chấm câu như bản gốc.
+- Nhập nhanh dữ liệu gõ tắt từ **Text Replacement** của macOS (mục Gõ tắt) — lấy luôn các từ viết tắt đã đồng bộ qua iCloud từ iPhone.
 
-**Đánh đổi cần biết:** vì OpenKey không đọc nội dung ô văn bản để biết ô đó có đang trống hay không, cơ chế mới dùng "click chuột" làm tín hiệu bắt đầu phiên gõ mới. Hệ quả: nếu bạn click vào **giữa** một đoạn văn bản có sẵn để sửa (không phải ô trống), ký tự gõ tiếp theo cũng sẽ bị viết hoa nhầm.
+**Đã sửa lỗi (so với bản tải từ GitHub gốc):**
+- Sửa lỗi không build được trên Xcode/macOS mới (API `AXAPIEnabled()` đã bị Apple gỡ; thiếu resource của module `OpenKeyUpdate`).
+- Sửa lỗi treo cứng toàn bộ ứng dụng ngay khi khởi động (vòng lặp chặn sai trong bộ bắt phím).
+- Sửa lỗi tiến trình nền `OpenKeyHelper` bị macOS chặn, không tự khởi động cùng máy được (chữ ký chứa cờ debug bị macOS mới coi là không hợp lệ).
+- Sửa lỗi gõ sai dấu trong một số trường hợp, ảnh hưởng đến mọi bảng mã (do lỗi duyệt sai kiểu dữ liệu bảng nội bộ trong engine).
+- Sửa hàng loạt nút/công tắc trong Cài đặt bị kết nối sai tên hàm nên bấm không có phản hồi (phím chuyển chế độ, khôi phục mặc định, mở bảng gõ tắt, đổi kiểu gõ/bảng mã, chế độ gõ Việt/Anh...).
 
-**Tính năng bị bỏ:** OpenKeyUpdate (tự kiểm tra bản cập nhật) không được build cùng, vì bản mã nguồn tải từ GitHub thiếu file resource của module này. Không ảnh hưởng đến việc gõ tiếng Việt.
+**Đã bỏ bớt (không cần thiết):**
+- Các tính năng tự động ghi nhớ/tạm tắt theo từng ứng dụng (chế độ gõ, bảng mã, tạm tắt OpenKey) — gây khó kiểm soát, người dùng tự chuyển khi cần thay vì để app tự động đổi ngầm.
+- Tính năng sửa lỗi gợi ý trên trình duyệt Chromium/Excel, tính năng gửi từng phím.
+- `OpenKeyUpdate` (tự kiểm tra bản cập nhật) không được build cùng do thiếu resource gốc — không ảnh hưởng đến việc gõ tiếng Việt.
+
+**Đánh đổi cần biết:** vì OpenKey không đọc nội dung ô văn bản để biết ô đó có đang trống hay không, tính năng tự viết hoa dùng "click chuột" làm tín hiệu bắt đầu phiên gõ mới. Hệ quả: nếu bạn click vào **giữa** một đoạn văn bản có sẵn để sửa (không phải ô trống), ký tự gõ tiếp theo cũng sẽ bị viết hoa nhầm.
 
 ## 3. Cách build lại từ source
 
@@ -69,11 +73,16 @@ App build xong nằm ở: `/tmp/openkey_build/Build/Products/Release/OpenKey.app
 3. Hộp thoại "OpenKey cần bạn cấp quyền để có thể hoạt động!" hiện ra → bấm **Cấp quyền**.
 4. Vào System Settings > Privacy & Security > Accessibility → bật công tắc **OpenKey**.
 5. Mở lại `OpenKey.app` lần nữa.
-6. Nếu tiến trình nền `OpenKeyHelper` chưa tự chạy: vào OpenKey, tắt rồi bật lại tùy chọn "Chạy cùng khởi động máy" để kích hoạt.
+6. Nếu tiến trình nền `OpenKeyHelper` chưa tự chạy: vào OpenKey, tắt rồi bật lại tùy chọn "Khởi động cùng macOS" trong mục Hệ thống để kích hoạt.
 
-## 5. Lưu ý khi chia sẻ cho người khác (giấy phép GPLv3)
+## 5. Giấy phép — GPLv3
 
-OpenKey phát hành theo giấy phép **GPLv3** (xem `Source/LICENSE`). Điều đó có nghĩa là khi chia sẻ bản đã sửa này cho người khác, bạn **bắt buộc**:
+OpenKey phát hành theo giấy phép **GPLv3** (xem `Source/LICENSE`). Vì bản này là phần mềm phái sinh (derivative work) từ OpenKey, theo đúng điều khoản của GPLv3, bản chỉnh sửa này **bắt buộc giữ nguyên giấy phép GPLv3** — không được đổi sang giấy phép khác.
+
+- Dựa trên: <https://github.com/tuyenvm/OpenKey> — tác giả gốc: Tuyền Mai và cộng đồng OpenKey (GPLv3).
+- Bản chỉnh sửa bởi: **DinhPhu** © 2026 — liên hệ: dinhphuhcmus15@gmail.com
+
+Khi chia sẻ bản đã sửa này cho người khác, bạn **bắt buộc**:
 
 - Kèm theo mã nguồn (thư mục `Source/` này) — đã có sẵn trong gói.
 - Ghi rõ đây là bản chỉnh sửa dựa trên OpenKey gốc: <https://github.com/tuyenvm/OpenKey>.

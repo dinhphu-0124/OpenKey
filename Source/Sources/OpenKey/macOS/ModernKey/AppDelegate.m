@@ -18,9 +18,7 @@
 AppDelegate* appDelegate;
 extern ViewController* viewController;
 extern void OnTableCodeChange(void);
-extern void OnInputMethodChanged(void);
 extern void RequestNewSession(void);
-extern void OnActiveAppChanged(void);
 
 //see document in Engine.h
 int vLanguage = 1;
@@ -33,26 +31,18 @@ int vQuickTelex = 0;
 #define DEFAULT_SWITCH_STATUS 0x7A000206 //default option + z
 int vSwitchKeyStatus = DEFAULT_SWITCH_STATUS;
 int vRestoreIfWrongSpelling = 0;
-int vFixRecommendBrowser = 1;
 int vUseMacro = 1;
 int vUseMacroInEnglishMode = 1;
 int vAutoCapsMacro = 0;
-int vSendKeyStepByStep = 0;
-int vUseSmartSwitchKey = 1;
 int vUpperCaseFirstChar = 0;
 int vTempOffSpelling = 0;
 int vAllowConsonantZFWJ = 0;
 int vQuickStartConsonant = 0;
 int vQuickEndConsonant = 0;
-int vRememberCode = 1; //new on version 2.0
-int vTempOffOpenKey = 0; //new on version 2.0
 
 int vShowIconOnDock = 0; //new on version 2.0
 
 int vPerformLayoutCompat = 0;
-
-//beta feature
-int vFixChromiumBrowser = 0; //new on version 2.0
 
 extern int convertToolHotKey;
 extern bool convertToolDontAlertWhenCompleted;
@@ -303,20 +293,14 @@ extern bool convertToolDontAlertWhenCompleted;
     vQuickTelex = 0; [[NSUserDefaults standardUserDefaults] setInteger:vQuickTelex forKey:@"QuickTelex"];
     vUseModernOrthography = 0; [[NSUserDefaults standardUserDefaults] setInteger:vUseModernOrthography forKey:@"ModernOrthography"];
     vRestoreIfWrongSpelling = 0; [[NSUserDefaults standardUserDefaults] setInteger:vRestoreIfWrongSpelling forKey:@"RestoreIfInvalidWord"];
-    vFixRecommendBrowser = 1; [[NSUserDefaults standardUserDefaults] setInteger:vFixRecommendBrowser forKey:@"FixRecommendBrowser"];
     vUseMacro = 1; [[NSUserDefaults standardUserDefaults] setInteger:vUseMacro forKey:@"UseMacro"];
     vUseMacroInEnglishMode = 0; [[NSUserDefaults standardUserDefaults] setInteger:vUseMacroInEnglishMode forKey:@"UseMacroInEnglishMode"];
-    vSendKeyStepByStep = 0;[[NSUserDefaults standardUserDefaults] setInteger:vSendKeyStepByStep forKey:@"SendKeyStepByStep"];
-    vUseSmartSwitchKey = 1;[[NSUserDefaults standardUserDefaults] setInteger:vUseSmartSwitchKey forKey:@"UseSmartSwitchKey"];
     vUpperCaseFirstChar = 0;[[NSUserDefaults standardUserDefaults] setInteger:vUpperCaseFirstChar forKey:@"UpperCaseFirstChar"];
     vTempOffSpelling = 0;[[NSUserDefaults standardUserDefaults] setInteger:vTempOffSpelling forKey:@"vTempOffSpelling"];
     vAllowConsonantZFWJ = 0;[[NSUserDefaults standardUserDefaults] setInteger:vAllowConsonantZFWJ forKey:@"vAllowConsonantZFWJ"];
     vQuickStartConsonant = 0;[[NSUserDefaults standardUserDefaults] setInteger:vQuickStartConsonant forKey:@"vQuickStartConsonant"];
     vQuickEndConsonant = 0;[[NSUserDefaults standardUserDefaults] setInteger:vQuickEndConsonant forKey:@"vQuickEndConsonant"];
-    vRememberCode = 1;[[NSUserDefaults standardUserDefaults] setInteger:vRememberCode forKey:@"vRememberCode"];
-    vTempOffOpenKey = 0;[[NSUserDefaults standardUserDefaults] setInteger:vTempOffOpenKey forKey:@"vTempOffOpenKey"];
     vShowIconOnDock = 0;[[NSUserDefaults standardUserDefaults] setInteger:vShowIconOnDock forKey:@"vShowIconOnDock"];
-    vFixChromiumBrowser = 0;[[NSUserDefaults standardUserDefaults] setInteger:vFixChromiumBrowser forKey:@"vFixChromiumBrowser"];
     vPerformLayoutCompat = 0;[[NSUserDefaults standardUserDefaults] setInteger:vPerformLayoutCompat forKey:@"vPerformLayoutCompat"];
 
     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"GrayIcon"];
@@ -442,9 +426,6 @@ extern bool convertToolDontAlertWhenCompleted;
 
     [self fillData];
     [viewController fillData];
-    
-    if (willNotify)
-        OnInputMethodChanged();
 }
 
 #pragma mark -StatusBar menu action
@@ -553,27 +534,17 @@ extern bool convertToolDontAlertWhenCompleted;
     RequestNewSession();
 }
 
--(void)activeAppChanged: (NSNotification*)note {
-    if (vUseSmartSwitchKey && [OpenKeyManager isInited]) {
-        OnActiveAppChanged();
-    }
-}
-
 -(void)registerSupportedNotification {
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
                                                            selector: @selector(receiveWakeNote:)
                                                                name: NSWorkspaceDidWakeNotification object: NULL];
-    
+
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
                                                            selector: @selector(receiveSleepNote:)
                                                                name: NSWorkspaceWillSleepNotification object: NULL];
-    
+
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
                                                            selector: @selector(receiveActiveSpaceChanged:)
                                                                name: NSWorkspaceActiveSpaceDidChangeNotification object: NULL];
-    
-    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
-                                                           selector: @selector(activeAppChanged:)
-                                                               name: NSWorkspaceDidActivateApplicationNotification object: NULL];
 }
 @end

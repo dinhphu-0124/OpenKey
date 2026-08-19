@@ -460,7 +460,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="onResetDefault:" target="XfG-lQ-9wD" id="P2v-8Q-e1u"/>
+                                    <action selector="onDefaultConfig:" target="XfG-lQ-9wD" id="P2v-8Q-e1u"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whS-p0-Sr2">
@@ -471,7 +471,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="onExit:" target="XfG-lQ-9wD" id="Lhe-s4-q1l"/>
+                                    <action selector="onTerminateApp:" target="XfG-lQ-9wD" id="Lhe-s4-q1l"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o65-tK-iPq">
@@ -512,7 +512,7 @@
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="onFixAccessibility:" target="XfG-lQ-9wD" id="LhL-56-g47"/>
+                                                <action selector="onRestart:" target="XfG-lQ-9wD" id="LhL-56-g47"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -599,7 +599,7 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
-                                                            <action selector="onSelectInputType:" target="XfG-lQ-9wD" id="d8z-3l-7Nf"/>
+                                                            <action selector="onInputTypeChanged:" target="XfG-lQ-9wD" id="d8z-3l-7Nf"/>
                                                         </connections>
                                                     </popUpButton>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-code">
@@ -624,7 +624,7 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
-                                                            <action selector="onSelectCode:" target="XfG-lQ-9wD" id="L0k-G5-J9e"/>
+                                                            <action selector="onCodeTableChanged:" target="XfG-lQ-9wD" id="L0k-G5-J9e"/>
                                                         </connections>
                                                     </popUpButton>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-mode">
@@ -639,23 +639,23 @@
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjz-9i-VOQ">
                                                         <rect key="frame" x="180" y="9" width="100" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="radio" title="Tiếng Việt" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1YF-jC-ZpC">
+                                                        <buttonCell key="cell" type="check" title="Tiếng Việt" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1YF-jC-ZpC">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onVietMode:" target="XfG-lQ-9wD" id="z1e-3B-o0p"/>
+                                                            <action selector="onLanguageChanged:" target="XfG-lQ-9wD" id="z1e-3B-o0p"/>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yUA-UQ-mxx">
                                                         <rect key="frame" x="290" y="9" width="90" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="radio" title="English" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="m0l-2C-v7a">
+                                                        <buttonCell key="cell" type="check" title="English" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="m0l-2C-v7a">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onEngMode:" target="XfG-lQ-9wD" id="5U7-8e-J1u"/>
+                                                            <action selector="onLanguageChanged:" target="XfG-lQ-9wD" id="5U7-8e-J1u"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -689,7 +689,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onCustomSwitchControl:" target="XfG-lQ-9wD" id="L9U-6d-3H7"/>
+                                                            <action selector="onControlSwitchKey:" target="XfG-lQ-9wD" id="L9U-6d-3H7"/>
                                                         </connections>
                                                     </button>
                                                     <button toolTip="Option" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mox-UL-j9u">
@@ -700,7 +700,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onCustomSwitchOption:" target="XfG-lQ-9wD" id="g5H-7u-3Nl"/>
+                                                            <action selector="onOptionSwitchKey:" target="XfG-lQ-9wD" id="g5H-7u-3Nl"/>
                                                         </connections>
                                                     </button>
                                                     <button toolTip="Command" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qvz-oU-TII">
@@ -711,7 +711,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onCustomSwitchCommand:" target="XfG-lQ-9wD" id="m6c-3u-1N9"/>
+                                                            <action selector="onCommandSwitchKey:" target="XfG-lQ-9wD" id="m6c-3u-1N9"/>
                                                         </connections>
                                                     </button>
                                                     <button toolTip="Shift" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh2-uV-nSn">
@@ -722,7 +722,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onCustomSwitchShift:" target="XfG-lQ-9wD" id="c8Y-4u-2K1"/>
+                                                            <action selector="onShiftSwitchKey:" target="XfG-lQ-9wD" id="c8Y-4u-2K1"/>
                                                         </connections>
                                                     </button>
                                                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2s-m3-A6w" customClass="MyTextField">
@@ -742,7 +742,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onCustomBeepSound:" target="XfG-lQ-9wD" id="L0k-G5-J9f"/>
+                                                            <action selector="onBeepSound:" target="XfG-lQ-9wD" id="L0k-G5-J9f"/>
                                                         </connections>
                                                     </button>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="crd1b-sub">
@@ -854,7 +854,7 @@
                                                         <rect key="frame" x="376" y="34" width="38" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <connections>
-                                                            <action selector="onAllowZWJF:" target="XfG-lQ-9wD" id="L0k-9u-3N2"/>
+                                                            <action selector="onAllowZFWJ:" target="XfG-lQ-9wD" id="L0k-9u-3N2"/>
                                                         </connections>
                                                     </switch>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-tempspell">
@@ -921,7 +921,7 @@
                                                         <rect key="frame" x="376" y="288" width="38" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <connections>
-                                                            <action selector="onUseMacro:" target="XfG-lQ-9wD" id="L7y-5t-2B2"/>
+                                                            <action selector="onMacroChanged:" target="XfG-lQ-9wD" id="L7y-5t-2B2"/>
                                                         </connections>
                                                     </switch>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-macroeng">
@@ -937,7 +937,7 @@
                                                         <rect key="frame" x="376" y="258" width="38" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <connections>
-                                                            <action selector="onUseMacroInEnglishMode:" target="XfG-lQ-9wD" id="H8l-6b-3C2"/>
+                                                            <action selector="onUseMacroInEnglishModeChanged:" target="XfG-lQ-9wD" id="H8l-6b-3C2"/>
                                                         </connections>
                                                     </switch>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-autocaps">
@@ -1071,7 +1071,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="onOpenMacroTable:" target="XfG-lQ-9wD" id="L0k-9u-3N6"/>
+                                                            <action selector="onMacroButton:" target="XfG-lQ-9wD" id="L0k-9u-3N6"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1094,14 +1094,14 @@
                                     <subviews>
                                         <!-- Card 3A -->
                                         <box fixedFrame="YES" boxType="custom" cornerRadius="10" title="Card3A" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="crd-3a-card">
-                                            <rect key="frame" x="0.0" y="88" width="430" height="360"/>
+                                            <rect key="frame" x="0.0" y="266" width="430" height="182"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="crd-3a-view">
-                                                <rect key="frame" x="1" y="1" width="428" height="358"/>
+                                                <rect key="frame" x="1" y="1" width="428" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="crd3a-hdr">
-                                                        <rect key="frame" x="14" y="330" width="250" height="18"/>
+                                                        <rect key="frame" x="14" y="152" width="250" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Tùy chọn hệ thống &amp; Tương thích" id="crd3a-hdrc">
                                                             <font key="font" metaFont="systemBold"/>
@@ -1110,7 +1110,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-startup">
-                                                        <rect key="frame" x="14" y="302" width="340" height="18"/>
+                                                        <rect key="frame" x="14" y="124" width="340" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Khởi động cùng macOS" id="lbl-startup-c">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1119,14 +1119,14 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <switch controlSize="small" toolTip="Tự động khởi chạy OpenKey khi mở máy" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-Yg-XFR">
-                                                        <rect key="frame" x="376" y="302" width="38" height="18"/>
+                                                        <rect key="frame" x="376" y="124" width="38" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <connections>
                                                             <action selector="onRunOnStartup:" target="XfG-lQ-9wD" id="L0k-9u-3N7"/>
                                                         </connections>
                                                     </switch>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-showui">
-                                                        <rect key="frame" x="14" y="272" width="340" height="18"/>
+                                                        <rect key="frame" x="14" y="94" width="340" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Bật bảng này khi khởi động" id="lbl-showui-c">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1135,14 +1135,14 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <switch controlSize="small" toolTip="Hiện bảng điều khiển này mỗi khi khởi chạy chương trình" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xle-7k-yIf">
-                                                        <rect key="frame" x="376" y="272" width="38" height="18"/>
+                                                        <rect key="frame" x="376" y="94" width="38" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <connections>
                                                             <action selector="onShowUIOnStartup:" target="XfG-lQ-9wD" id="L0k-9u-3N8"/>
                                                         </connections>
                                                     </switch>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-dock">
-                                                        <rect key="frame" x="14" y="242" width="340" height="18"/>
+                                                        <rect key="frame" x="14" y="64" width="340" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Hiện biểu tượng trên thanh Dock" id="lbl-dock-c">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1151,14 +1151,14 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <switch controlSize="small" toolTip="Hiện biểu tượng OpenKey trên thanh Dock" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5XE-HO-9o0">
-                                                        <rect key="frame" x="376" y="242" width="38" height="18"/>
+                                                        <rect key="frame" x="376" y="64" width="38" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <connections>
                                                             <action selector="onShowIconOnDock:" target="XfG-lQ-9wD" id="L0k-9u-3N9"/>
                                                         </connections>
                                                     </switch>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-grayicon">
-                                                        <rect key="frame" x="14" y="212" width="340" height="18"/>
+                                                        <rect key="frame" x="14" y="34" width="340" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Biểu tượng phù hợp với Dark Mode" id="lbl-grayicon-c">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -1167,106 +1167,10 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <switch controlSize="small" toolTip="Bật biểu tượng đơn sắc để phù hợp hơn với chế độ nền tối Dark Mode" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HEa-Qp-9qT">
-                                                        <rect key="frame" x="376" y="212" width="38" height="18"/>
+                                                        <rect key="frame" x="376" y="34" width="38" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <connections>
                                                             <action selector="onGrayIcon:" target="XfG-lQ-9wD" id="L0k-9u-3NA"/>
-                                                        </connections>
-                                                    </switch>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-smart">
-                                                        <rect key="frame" x="14" y="182" width="340" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Tự ghi nhớ chế độ gõ theo ứng dụng" id="lbl-smart-c">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <switch controlSize="small" toolTip="Ghi nhớ chế độ gõ (Việt/Anh) riêng biệt cho từng ứng dụng" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YGb-a8-1Lb">
-                                                        <rect key="frame" x="376" y="182" width="38" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <connections>
-                                                            <action selector="onAutoRememberSwitchKey:" target="XfG-lQ-9wD" id="L0k-9u-3NB"/>
-                                                        </connections>
-                                                    </switch>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-codeapp">
-                                                        <rect key="frame" x="14" y="152" width="340" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Tự ghi nhớ bảng mã theo ứng dụng" id="lbl-codeapp-c">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <switch controlSize="small" toolTip="Ghi nhớ bảng mã riêng biệt cho từng ứng dụng" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zV-2v-Cyt">
-                                                        <rect key="frame" x="376" y="152" width="38" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <connections>
-                                                            <action selector="onRememberTableCode:" target="XfG-lQ-9wD" id="L0k-9u-3NC"/>
-                                                        </connections>
-                                                    </switch>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-tempoff">
-                                                        <rect key="frame" x="14" y="122" width="340" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Tạm tắt OpenKey theo ứng dụng" id="lbl-tempoff-c">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <switch controlSize="small" toolTip="Tự động tắt gõ tiếng Việt ở các ứng dụng đặc thù (VD: game, terminal)" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1eA-ed-0Ov">
-                                                        <rect key="frame" x="376" y="122" width="38" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <connections>
-                                                            <action selector="onTempOffOpenKey:" target="XfG-lQ-9wD" id="L0k-9u-3ND"/>
-                                                        </connections>
-                                                    </switch>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-fix">
-                                                        <rect key="frame" x="14" y="92" width="340" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Sửa lỗi gợi ý (trình duyệt, Excel)" id="lbl-fix-c">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <switch controlSize="small" toolTip="Khắc phục lỗi nhảy chữ, mất ký tự khi gõ trên thanh tìm kiếm trình duyệt hoặc bảng tính" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKq-hz-RRL">
-                                                        <rect key="frame" x="376" y="92" width="38" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <connections>
-                                                            <action selector="onFixRecommendBrowser:" target="XfG-lQ-9wD" id="L0k-9u-3NE"/>
-                                                        </connections>
-                                                    </switch>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-chromium">
-                                                        <rect key="frame" x="14" y="62" width="340" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Sửa lỗi trên Chromium (Chrome, Edge...)" id="lbl-chromium-c">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <switch controlSize="small" toolTip="Sửa lỗi bị đúp từ trên trình duyệt Chrome, Brave, Edge" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efe-07-OlS">
-                                                        <rect key="frame" x="376" y="62" width="38" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <connections>
-                                                            <action selector="onFixChromiumBrowser:" target="XfG-lQ-9wD" id="L0k-9u-3NF"/>
-                                                        </connections>
-                                                    </switch>
-                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-sendkey">
-                                                        <rect key="frame" x="14" y="32" width="340" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Gửi từng phím (bật nếu bị lỗi)" id="lbl-sendkey-c">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <switch controlSize="small" toolTip="Chỉ nên bật nếu một số ứng dụng gặp lỗi không gõ được Tiếng Việt" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C8z-Sp-sdZ">
-                                                        <rect key="frame" x="376" y="32" width="38" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                        <connections>
-                                                            <action selector="onSendKeyStepByStep:" target="XfG-lQ-9wD" id="L0k-9u-3NG"/>
                                                         </connections>
                                                     </switch>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-layoutcompat">
@@ -1293,7 +1197,7 @@
 
                                         <!-- Card 3B -->
                                         <box fixedFrame="YES" boxType="custom" cornerRadius="10" title="Card3B" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="crd-3b-card">
-                                            <rect key="frame" x="0.0" y="8" width="430" height="72"/>
+                                            <rect key="frame" x="0.0" y="186" width="430" height="72"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <view key="contentView" id="crd-3b-view">
                                                 <rect key="frame" x="1" y="1" width="428" height="70"/>
@@ -1378,7 +1282,7 @@
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXh-ai-gk3">
                                                         <rect key="frame" x="106" y="372" width="310" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Phiên bản 1.0 (Bản chuẩn 2026)" id="Wf7-Xb-12u">
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Phiên bản 1.0.0" id="Wf7-Xb-12u">
                                                             <font key="font" metaFont="system" size="12"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1412,9 +1316,9 @@
                                                             <string key="title">OpenKey là chương trình gõ Tiếng Việt mã nguồn mở hiện đại, nhanh, nhẹ và an toàn dành cho macOS.
 
 • Tối ưu tương thích hoàn hảo với các phiên bản macOS mới.
-• Khắc phục triệt để lỗi gợi ý trên trình duyệt Chromium và Excel.
-• Hỗ trợ đa dạng bảng mã và kiểu gõ phổ biến Telex, VNI, Simple Telex.
-• Khả năng tự động ghi nhớ chế độ gõ và bảng mã theo từng ứng dụng.</string>
+• Tự động viết hoa chữ cái đầu khi bắt đầu gõ vào một ô nhập liệu mới.
+• Hỗ trợ đa dạng bảng mã và kiểu gõ phổ biến: Telex, VNI, Simple Telex.
+• Nhập nhanh dữ liệu gõ tắt từ Text Replacement của macOS (đồng bộ qua iCloud).</string>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -1422,7 +1326,7 @@
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umA-Yh-Pbd">
                                                         <rect key="frame" x="16" y="80" width="394" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Phát triển bởi DinhPhu © 2026. Phát hành theo giấy phép MIT / GPL." id="7mN-K3-6L1">
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Phát triển bởi DinhPhu © 2026. Phát hành theo giấy phép GPLv3." id="7mN-K3-6L1">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1462,7 +1366,6 @@
                     <connections>
                         <outlet property="AllowZWJF" destination="uOQ-qL-V9O" id="Jqs-5h-yVt"/>
                         <outlet property="AutoCapsMacro" destination="74U-4J-gv7" id="VfS-OM-Xg9"/>
-                        <outlet property="AutoRememberSwitchKey" destination="YGb-a8-1Lb" id="uux-4i-1Hw"/>
                         <outlet property="CheckNewVersionButton" destination="ZuJ-Ke-7Qg" id="YR5-LD-gFA"/>
                         <outlet property="CheckNewVersionOnStartup" destination="oZr-h6-YZJ" id="kPW-tt-B1L"/>
                         <outlet property="CheckSpellingButton" destination="6Ko-dG-wVl" id="GZc-qh-LkA"/>
@@ -1473,20 +1376,15 @@
                         <outlet property="CustomSwitchOption" destination="Mox-UL-j9u" id="iCB-jD-eQG"/>
                         <outlet property="CustomSwitchShift" destination="wh2-uV-nSn" id="uJw-Tj-F5N"/>
                         <outlet property="EngButton" destination="yUA-UQ-mxx" id="QKJ-tU-dsA"/>
-                        <outlet property="FixChromiumBrowser" destination="efe-07-OlS" id="PMH-MH-7Ea"/>
-                        <outlet property="FixRecommendBrowser" destination="BKq-hz-RRL" id="V6H-kl-20B"/>
                         <outlet property="FreeMarkButton" destination="f8B-EV-EE1" id="u6V-zD-Xqg"/>
                         <outlet property="PerformLayoutCompat" destination="FLh-VP-qtU" id="PZj-VV-FRE"/>
                         <outlet property="QuickEndConsonant" destination="2k8-6T-Cyn" id="Yj2-m5-Nbj"/>
                         <outlet property="QuickStartConsonant" destination="V4i-Pw-iL5" id="ing-Db-5XB"/>
                         <outlet property="QuickTelex" destination="LNA-pk-XQM" id="Iso-f9-PzK"/>
-                        <outlet property="RememberTableCode" destination="8zV-2v-Cyt" id="hK1-zJ-fK9"/>
                         <outlet property="RestoreIfInvalidWord" destination="HoJ-3t-uio" id="aPe-Ic-Sgb"/>
                         <outlet property="RunOnStartupButton" destination="Leg-Yg-XFR" id="oRL-up-vyq"/>
-                        <outlet property="SendKeyStepByStep" destination="C8z-Sp-sdZ" id="eSj-4I-pDf"/>
                         <outlet property="ShowIconOnDock" destination="5XE-HO-9o0" id="0eA-ky-HTL"/>
                         <outlet property="ShowUIButton" destination="Xle-7k-yIf" id="dbk-Zf-T4j"/>
-                        <outlet property="TempOffOpenKey" destination="1eA-ed-0Ov" id="Uyz-ef-YcS"/>
                         <outlet property="TempOffSpellChecking" destination="Fld-P4-C8F" id="dmu-8Y-on5"/>
                         <outlet property="UpperCaseFirstChar" destination="Adl-fG-XEu" id="b4x-Cc-Trs"/>
                         <outlet property="UseGrayIcon" destination="HEa-Qp-9qT" id="ApG-gR-H4l"/>
@@ -1546,7 +1444,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vlj-ox-8lT">
-                                <rect key="frame" x="20" y="408" width="113" height="25"/>
+                                <rect key="frame" x="20" y="408" width="133" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Oi7-LO-I1e">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -1564,7 +1462,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e48-Ve-MTZ">
-                                <rect key="frame" x="141" y="408" width="270" height="25"/>
+                                <rect key="frame" x="163" y="408" width="248" height="25"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="U63-Oh-ZV3">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -1573,7 +1471,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOm-Ez-5wD">
-                                <rect key="frame" x="139" y="435" width="104" height="17"/>
+                                <rect key="frame" x="163" y="435" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Nội dung đầy đủ" id="k2B-C5-rz5">
                                     <font key="font" metaFont="system"/>
@@ -1606,7 +1504,7 @@
                                 </connections>
                             </button>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEc-sx-COt">
-                                <rect key="frame" x="20" y="48" width="560" height="344"/>
+                                <rect key="frame" x="20" y="57" width="560" height="334"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="q0v-R9-D3T">
                                     <rect key="frame" x="1" y="1" width="558" height="342"/>
@@ -1619,7 +1517,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="107" minWidth="40" maxWidth="1000" id="b9G-8G-Zcp">
+                                                <tableColumn width="170" minWidth="40" maxWidth="1000" id="b9G-8G-Zcp">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -1651,7 +1549,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn width="436" minWidth="40" maxWidth="1000" id="74t-te-8d4">
+                                                <tableColumn width="373" minWidth="40" maxWidth="1000" id="74t-te-8d4">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -1696,26 +1594,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sXP-A3-19r">
-                                <rect key="frame" x="14" y="10" width="115" height="32"/>
+                            <button toolTip="Nhập bảng Text Replacement của macOS (đồng bộ qua iCloud) vào danh sách gõ tắt" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="imp-mac-btn">
+                                <rect key="frame" x="14" y="10" width="230" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Nạp từ file..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dKc-Al-mnk">
+                                <buttonCell key="cell" type="push" title="Nhập từ Text Replacement..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="imp-mac-cell">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="onLoadFromFile:" target="XIf-Yi-IFu" id="8vS-9L-9eK"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksD-xJ-wPh">
-                                <rect key="frame" x="135" y="10" width="117" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Xuất ra file..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FCJ-yj-Hut">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="onExportToFile:" target="XIf-Yi-IFu" id="5X6-CE-cPl"/>
+                                    <action selector="onImportFromMacOSTextReplacement:" target="XIf-Yi-IFu" id="imp-mac-act"/>
                                 </connections>
                             </button>
                             <button toolTip="VD: bạn định nghĩa &quot;ko=không&quot;Nếu bạn gõ: &quot;ko&quot; sẽ thành &quot;không&quot;Nếu bạn gõ &quot;Ko&quot; sẽ thành &quot;Không&quot;Nếu bạn gõ &quot;KO&quot; sẽ thành &quot;KHÔNG&quot;" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LXc-GH-oYK">

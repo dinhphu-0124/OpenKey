@@ -21,21 +21,15 @@ extern int vUseModernOrthography;
 extern int vSwitchKeyStatus;
 extern int vQuickTelex;
 extern int vRestoreIfWrongSpelling;
-extern int vFixRecommendBrowser;
 extern int vUseMacro;
 extern int vUseMacroInEnglishMode;
-extern int vSendKeyStepByStep;
-extern int vUseSmartSwitchKey;
 extern int vUpperCaseFirstChar;
 extern int vTempOffSpelling;
 extern int vAllowConsonantZFWJ;
 extern int vQuickStartConsonant;
 extern int vQuickEndConsonant;
-extern int vRememberCode;
-extern int vTempOffOpenKey;
 extern int vShowIconOnDock;
 extern int vAutoCapsMacro;
-extern int vFixChromiumBrowser;
 extern int vPerformLayoutCompat;
 
 @implementation ViewController {
@@ -235,7 +229,7 @@ extern int vPerformLayoutCompat;
   vRestoreIfWrongSpelling = (int)val;
 }
 
-- (IBAction)omTempOffSpellChecking:(id)sender {
+- (IBAction)onTempOffSpellChecking:(id)sender {
   NSInteger val = [self setCustomValue:sender keyToSet:@"vTempOffSpelling"];
   vTempOffSpelling = (int)val;
 }
@@ -243,12 +237,6 @@ extern int vPerformLayoutCompat;
 - (IBAction)onAllowZFWJ:(id)sender {
   NSInteger val = [self setCustomValue:sender keyToSet:@"vAllowConsonantZFWJ"];
   vAllowConsonantZFWJ = (int)val;
-}
-
-- (IBAction)onFixRecommendBrowser:(id)sender {
-  NSInteger val = [self setCustomValue:sender keyToSet:@"FixRecommendBrowser"];
-  vFixRecommendBrowser = (int)val;
-  [self.FixChromiumBrowser setEnabled:val];
 }
 
 - (IBAction)onControlSwitchKey:(NSButton *)sender {
@@ -301,11 +289,6 @@ extern int vPerformLayoutCompat;
                                              forKey:@"SwitchKeyStatus"];
 }
 
-- (IBAction)onSendKeyStepByStep:(id)sender {
-  NSInteger val = [self setCustomValue:sender keyToSet:@"SendKeyStepByStep"];
-  vSendKeyStepByStep = (int)val;
-}
-
 - (IBAction)onPerformLayoutCompat:(id)sender {
   NSInteger val = [self setCustomValue:sender keyToSet:@"vPerformLayoutCompat"];
   vPerformLayoutCompat = (int)val;
@@ -338,11 +321,6 @@ extern int vPerformLayoutCompat;
   vUseMacroInEnglishMode = (int)val;
 }
 
-- (IBAction)onAutoRememberSwitchKey:(NSButton *)sender {
-  NSInteger val = [self setCustomValue:sender keyToSet:@"UseSmartSwitchKey"];
-  vUseSmartSwitchKey = (int)val;
-}
-
 - (IBAction)onUpperCaseFirstChar:(NSButton *)sender {
   NSInteger val = [self setCustomValue:sender keyToSet:@"UpperCaseFirstChar"];
   vUpperCaseFirstChar = (int)val;
@@ -355,16 +333,6 @@ extern int vPerformLayoutCompat;
 - (IBAction)onQuickEndConsonant:(id)sender {
   NSInteger val = [self setCustomValue:sender keyToSet:@"vQuickEndConsonant"];
   vQuickEndConsonant = (int)val;
-}
-
-- (IBAction)onTempOffOpenKeyByHotKey:(id)sender {
-  NSInteger val = [self setCustomValue:sender keyToSet:@"vTempOffOpenKey"];
-  vTempOffOpenKey = (int)val;
-}
-
-- (IBAction)onRememberTableCode:(id)sender {
-  NSInteger val = [self setCustomValue:sender keyToSet:@"vRememberCode"];
-  vRememberCode = (int)val;
 }
 
 - (IBAction)onAutoCapsMacro:(id)sender {
@@ -387,11 +355,6 @@ extern int vPerformLayoutCompat;
                                              forKey:@"DontCheckUpdate"];
 }
 
-- (IBAction)onFixChromiumBrowser:(NSButton *)sender {
-  NSInteger val = [self setCustomValue:sender keyToSet:@"vFixChromiumBrowser"];
-  vFixChromiumBrowser = (int)val;
-}
-
 - (IBAction)onTerminateApp:(id)sender {
   [NSApp terminate:0];
 }
@@ -403,7 +366,9 @@ extern int vPerformLayoutCompat;
       [[NSUserDefaults standardUserDefaults] integerForKey:@"InputMethod"];
   if (intInputMethod == 1) {
     self.VietButton.state = NSControlStateValueOn;
-  } else if (intInputMethod == 0) {
+    self.EngButton.state = NSControlStateValueOff;
+  } else {
+    self.VietButton.state = NSControlStateValueOff;
     self.EngButton.state = NSControlStateValueOn;
   }
 
@@ -469,11 +434,6 @@ extern int vPerformLayoutCompat;
       allowZFWJ ? NSControlStateValueOn : NSControlStateValueOff;
   [self.AllowZWJF setEnabled:spelling];
 
-  NSInteger fixRecommendBrowser = [[NSUserDefaults standardUserDefaults]
-      integerForKey:@"FixRecommendBrowser"];
-  self.FixRecommendBrowser.state =
-      fixRecommendBrowser ? NSControlStateValueOn : NSControlStateValueOff;
-
   NSInteger useMacro =
       [[NSUserDefaults standardUserDefaults] integerForKey:@"UseMacro"];
   self.UseMacro.state =
@@ -483,16 +443,6 @@ extern int vPerformLayoutCompat;
       integerForKey:@"UseMacroInEnglishMode"];
   self.UseMacroInEnglishMode.state =
       useMacroInEnglish ? NSControlStateValueOn : NSControlStateValueOff;
-
-  NSInteger sendKeySbS = [[NSUserDefaults standardUserDefaults]
-      integerForKey:@"SendKeyStepByStep"];
-  self.SendKeyStepByStep.state =
-      sendKeySbS ? NSControlStateValueOn : NSControlStateValueOff;
-
-  NSInteger useSmartSwitchKey = [[NSUserDefaults standardUserDefaults]
-      integerForKey:@"UseSmartSwitchKey"];
-  self.AutoRememberSwitchKey.state =
-      useSmartSwitchKey ? NSControlStateValueOn : NSControlStateValueOff;
 
   NSInteger upperCaseFirstChar = [[NSUserDefaults standardUserDefaults]
       integerForKey:@"UpperCaseFirstChar"];
@@ -510,16 +460,6 @@ extern int vPerformLayoutCompat;
       quickEndConsonant ? NSControlStateValueOn : NSControlStateValueOff;
 
   value =
-      [[NSUserDefaults standardUserDefaults] integerForKey:@"vRememberCode"];
-  self.RememberTableCode.state =
-      value ? NSControlStateValueOn : NSControlStateValueOff;
-
-  value =
-      [[NSUserDefaults standardUserDefaults] integerForKey:@"vTempOffOpenKey"];
-  self.TempOffOpenKey.state =
-      value ? NSControlStateValueOn : NSControlStateValueOff;
-
-  value =
       [[NSUserDefaults standardUserDefaults] integerForKey:@"vAutoCapsMacro"];
   self.AutoCapsMacro.state =
       value ? NSControlStateValueOn : NSControlStateValueOff;
@@ -533,12 +473,6 @@ extern int vPerformLayoutCompat;
       [[NSUserDefaults standardUserDefaults] integerForKey:@"DontCheckUpdate"];
   self.CheckNewVersionOnStartup.state =
       value ? NSControlStateValueOff : NSControlStateValueOn;
-
-  value = [[NSUserDefaults standardUserDefaults]
-      integerForKey:@"vFixChromiumBrowser"];
-  self.FixChromiumBrowser.state =
-      value ? NSControlStateValueOn : NSControlStateValueOff;
-  self.FixChromiumBrowser.enabled = fixRecommendBrowser ? YES : NO;
 
   value = [[NSUserDefaults standardUserDefaults]
       integerForKey:@"vPerformLayoutCompat"];

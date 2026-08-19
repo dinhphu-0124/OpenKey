@@ -228,19 +228,35 @@ static CFRunLoopSourceRef runLoopSource;
     [[NSFileManager defaultManager] removeItemAtPath:target error:&copyError];
     if (![[NSFileManager defaultManager] fileExistsAtPath:target]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:[self getApplicationSupportFolder] withIntermediateDirectories:YES attributes:nil error:nil];
-        
+
         if (![[NSFileManager defaultManager] copyItemAtPath:[self getUpdateBundlePath] toPath:target error:&copyError]) {
             NSLog(@"Error on copy");
         }
     }
-    
+
+    // Bản build này không đóng gói OpenKeyUpdate.app (xem README), nên không
+    // được phép thoát ứng dụng nếu helper cập nhật không thực sự tồn tại —
+    // trước đây làm vậy khiến OpenKey tự tắt mà không cập nhật được gì.
+    if (![[NSFileManager defaultManager] fileExistsAtPath:target]) {
+        [self showMessage:nil
+                   message:@"Không thể tự cập nhật"
+                    subMsg:@"Bản này chưa hỗ trợ tự cập nhật. Vui lòng tải bản mới thủ công."];
+        return;
+    }
+
     NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
     NSURL *url = [NSURL fileURLWithPath:[workspace fullPathForApplication:target]];
     NSError *error = nil;
     NSArray *arguments = [NSArray arrayWithObjects: @"yeah", nil];
-    [workspace launchApplicationAtURL:url options:0 configuration:[NSDictionary dictionaryWithObject:arguments forKey:NSWorkspaceLaunchConfigurationArguments] error:&error];
-    
-    [NSApp terminate:0]; //exit main app
+    BOOL launched = [workspace launchApplicationAtURL:url options:0 configuration:[NSDictionary dictionaryWithObject:arguments forKey:NSWorkspaceLaunchConfigurationArguments] error:&error];
+
+    if (launched) {
+        [NSApp terminate:0]; //exit main app so the update helper can replace it
+    } else {
+        [self showMessage:nil
+                   message:@"Không thể tự cập nhật"
+                    subMsg:@"Vui lòng tải bản mới thủ công."];
+    }
 }
 
 +(NSString*)getApplicationSupportFolder {

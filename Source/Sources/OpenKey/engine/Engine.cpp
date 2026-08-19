@@ -543,7 +543,7 @@ Uint32 getCharacterCode(const Uint32& data) {
         }
         if (_codeTable[vCodeTable].find(key) == _codeTable[vCodeTable].end())
             return data; //not found
-        
+
         return _codeTable[vCodeTable][key][markElem] | CHAR_CODE_MASK;
     } else { //doesn't has mark
         if (_codeTable[vCodeTable].find(key) == _codeTable[vCodeTable].end())
@@ -763,7 +763,7 @@ void insertMark(const Uint32& markMask, const bool& canModifyFlag) {
     
     findAndCalculateVowel();
     VWSM = 0;
-    
+
     //detect mark position
     if (vowelCount == 1) {
         VWSM = VEI;
@@ -776,7 +776,7 @@ void insertMark(const Uint32& markMask, const bool& canModifyFlag) {
         if (TypingWord[VEI] & TONE_MASK || TypingWord[VEI] & TONEW_MASK)
             vowelWillSetMark = VEI;
     }
-    
+
     //send data
     kk = _index - 1 - VSI;
     //if duplicate same mark -> restore
@@ -803,7 +803,7 @@ void insertMark(const Uint32& markMask, const bool& canModifyFlag) {
             }
             hData[kk--] = GET(TypingWord[ii]);
         }
-        
+
         hBPC = _index - VSI;
     }
     hNCC = hBPC;
@@ -1106,8 +1106,8 @@ void handleMainKey(const Uint16& data, const bool& isCaps) {
     
     //if is mark key
     if (IS_MARK_KEY(data)) {
-        for (i = 0; i < _vowelForMark.size(); i++) {
-            vector<vector<Uint16>>& charset = _vowelForMark[i];
+        for (auto& vowelEntry : _vowelForMark) {
+            vector<vector<Uint16>>& charset = vowelEntry.second;
             isCorect = false;
             isChanged = false;
             k = _index;

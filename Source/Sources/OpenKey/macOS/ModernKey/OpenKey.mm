@@ -107,8 +107,6 @@ NSDictionary *keyStringToKeyCodeMap = @{
 extern ViewController *viewController;
 
 extern AppDelegate *appDelegate;
-extern int vSendKeyStepByStep;
-extern int vFixChromiumBrowser;
 extern int vPerformLayoutCompat;
 
 extern "C" {
@@ -147,11 +145,6 @@ int _i, _j, _k;
 Uint32 _tempChar;
 bool _hasJustUsedHotKey = false;
 
-int _languageTemp = 0;                // use for smart switch key
-vector<Byte> savedSmartSwitchKeyData; ////use for smart switch key
-
-NSString *_frontMostApp = @"UnknownApp";
-
 void OpenKeyInit() {
   // load saved data
   vFreeMark = 0; //(int)[[NSUserDefaults standardUserDefaults]
@@ -163,22 +156,15 @@ void OpenKeyInit() {
   LOAD_DATA(vQuickTelex, QuickTelex);
   LOAD_DATA(vUseModernOrthography, ModernOrthography);
   LOAD_DATA(vRestoreIfWrongSpelling, RestoreIfInvalidWord);
-  LOAD_DATA(vFixRecommendBrowser, FixRecommendBrowser);
   LOAD_DATA(vUseMacro, UseMacro);
   LOAD_DATA(vUseMacroInEnglishMode, UseMacroInEnglishMode);
   LOAD_DATA(vAutoCapsMacro, vAutoCapsMacro);
-  LOAD_DATA(vSendKeyStepByStep, SendKeyStepByStep);
-  LOAD_DATA(vUseSmartSwitchKey, UseSmartSwitchKey);
   LOAD_DATA(vUpperCaseFirstChar, UpperCaseFirstChar);
 
   LOAD_DATA(vTempOffSpelling, vTempOffSpelling);
   LOAD_DATA(vAllowConsonantZFWJ, vAllowConsonantZFWJ);
   LOAD_DATA(vQuickEndConsonant, vQuickEndConsonant);
   LOAD_DATA(vQuickStartConsonant, vQuickStartConsonant);
-  LOAD_DATA(vRememberCode, vRememberCode);
-  LOAD_DATA(vTempOffOpenKey, vTempOffOpenKey);
-
-  LOAD_DATA(vFixChromiumBrowser, vFixChromiumBrowser);
 
   LOAD_DATA(vPerformLayoutCompat, vPerformLayoutCompat);
 
@@ -226,21 +212,6 @@ void RequestNewSession() {
   // does not make the next character uppercase.
 }
 
-void queryFrontMostApp() {
-  if ([[[NSWorkspace sharedWorkspace] frontmostApplication].bundleIdentifier
-          compare:OPENKEY_BUNDLE] != 0) {
-    _frontMostApp =
-        [[NSWorkspace sharedWorkspace] frontmostApplication].bundleIdentifier;
-    if (_frontMostApp == nil)
-      _frontMostApp =
-          [[NSWorkspace sharedWorkspace] frontmostApplication].localizedName !=
-                  nil
-              ? [[NSWorkspace sharedWorkspace] frontmostApplication]
-                    .localizedName
-              : @"UnknownApp";
-  }
-}
-
 NSString *ConvertUtil(NSString *str) {
   return [NSString stringWithUTF8String:convertUtil([str UTF8String]).c_str()];
 }
@@ -256,55 +227,8 @@ BOOL containUnicodeCompoundApp(NSString *topApp) {
   return false;
 }
 
-void saveSmartSwitchKeyData() {
-  getSmartSwitchKeySaveData(savedSmartSwitchKeyData);
-  NSData *_data = [NSData dataWithBytes:savedSmartSwitchKeyData.data()
-                                 length:savedSmartSwitchKeyData.size()];
-  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-  [prefs setObject:_data forKey:@"smartSwitchKey"];
-}
-
-void OnActiveAppChanged() { // use for smart switch key; improved on Sep 28th,
-                            // 2019
-  queryFrontMostApp();
-  _languageTemp = getAppInputMethodStatus(string(_frontMostApp.UTF8String),
-                                          vLanguage | (vCodeTable << 1));
-  if ((_languageTemp & 0x01) != vLanguage) { // for input method
-    if (_languageTemp != -1) {
-      vLanguage = _languageTemp;
-      [appDelegate onImputMethodChanged:NO];
-      startNewSession();
-    } else {
-      saveSmartSwitchKeyData();
-    }
-  }
-  if (vRememberCode &&
-      (_languageTemp >> 1) != vCodeTable) { // for remember table code feature
-    if (_languageTemp != -1) {
-      [appDelegate onCodeTableChanged:(_languageTemp >> 1)];
-    } else {
-      saveSmartSwitchKeyData();
-    }
-  }
-}
-
 void OnTableCodeChange() {
   onTableCodeChange();
-  if (vRememberCode) {
-    queryFrontMostApp();
-    setAppInputMethodStatus(string(_frontMostApp.UTF8String),
-                            vLanguage | (vCodeTable << 1));
-    saveSmartSwitchKeyData();
-  }
-}
-
-void OnInputMethodChanged() {
-  if (vUseSmartSwitchKey) {
-    queryFrontMostApp();
-    setAppInputMethodStatus(string(_frontMostApp.UTF8String),
-                            vLanguage | (vCodeTable << 1));
-    saveSmartSwitchKeyData();
-  }
 }
 
 void OnSpellCheckingChanged() { vSetCheckSpelling(); }
@@ -627,12 +551,6 @@ void switchLanguage() {
 }
 
 void handleMacro() {
-  // fix autocomplete
-  if (vFixRecommendBrowser) {
-    SendEmptyCharacter();
-    pData->backspaceCount++;
-  }
-
   // send backspace
   if (pData->backspaceCount > 0) {
     for (int i = 0; i < pData->backspaceCount; i++) {
@@ -640,17 +558,7 @@ void handleMacro() {
     }
   }
   // send real data
-  if (!vSendKeyStepByStep) {
-    SendNewCharString(true);
-  } else {
-    for (int i = 0; i < pData->macroData.size(); i++) {
-      if (pData->macroData[i] & PURE_CHARACTER_MASK) {
-        SendPureCharacter(pData->macroData[i]);
-      } else {
-        SendKeyCode(pData->macroData[i]);
-      }
-    }
-  }
+  SendNewCharString(true);
   SendKeyCode(_keycode | (_flag & kCGEventFlagMaskShift ? CAPS_MASK : 0));
 }
 
@@ -750,10 +658,6 @@ CGEventRef OpenKeyCallback(CGEventTapProxy proxy, CGEventType type,
           _lastFlag & kCGEventFlagMaskControl) {
         vTempOffSpellChecking();
       }
-      if (vTempOffOpenKey && !_hasJustUsedHotKey &&
-          _lastFlag & kCGEventFlagMaskCommand) {
-        vTempOffEngine();
-      }
       _lastFlag = 0;
       _hasJustUsedHotKey = false;
     }
@@ -824,21 +728,6 @@ CGEventRef OpenKeyCallback(CGEventTapProxy proxy, CGEventType type,
                pData->code ==
                    vRestoreAndStartNewSession) { // handle result signal
 
-      // fix autocomplete
-      if (vFixRecommendBrowser && pData->extCode != 4) {
-        if (vFixChromiumBrowser &&
-            [_unicodeCompoundApp containsObject:FRONT_APP]) {
-          if (pData->backspaceCount > 0) {
-            SendShiftAndLeftArrow();
-            if (pData->backspaceCount == 1)
-              pData->backspaceCount--;
-          }
-        } else {
-          SendEmptyCharacter();
-          pData->backspaceCount++;
-        }
-      }
-
       // send backspace
       if (pData->backspaceCount > 0 && pData->backspaceCount < MAX_BUFF) {
         for (_i = 0; _i < pData->backspaceCount; _i++) {
@@ -847,25 +736,7 @@ CGEventRef OpenKeyCallback(CGEventTapProxy proxy, CGEventType type,
       }
 
       // send new character
-      if (!vSendKeyStepByStep) {
-        SendNewCharString();
-      } else {
-        if (pData->newCharCount > 0 && pData->newCharCount <= MAX_BUFF) {
-          for (int i = pData->newCharCount - 1; i >= 0; i--) {
-            SendKeyCode(pData->charData[i]);
-          }
-        }
-        if (pData->code == vRestore ||
-            pData->code == vRestoreAndStartNewSession) {
-          SendKeyCode(_keycode | ((_flag & kCGEventFlagMaskAlphaShift) ||
-                                          (_flag & kCGEventFlagMaskShift)
-                                      ? CAPS_MASK
-                                      : 0));
-        }
-        if (pData->code == vRestoreAndStartNewSession) {
-          startNewSession();
-        }
-      }
+      SendNewCharString();
     } else if (pData->code == vReplaceMaro) { // MACRO
       handleMacro();
     }

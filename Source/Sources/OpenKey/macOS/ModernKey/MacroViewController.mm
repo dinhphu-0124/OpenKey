@@ -78,42 +78,37 @@
     [self saveAndReload];
 }
 
-- (IBAction)onLoadFromFile:(id)sender {
-    NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-    [openPanel setMessage:@"Chọn file dữ liệu gõ tắt"];
-    [openPanel setCanChooseFiles:YES];
-    [openPanel setAllowsMultipleSelection:NO];
-    [openPanel setCanChooseDirectories:NO];
-    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"txt", nil]];
-    [openPanel setExtensionHidden:NO];
-    [openPanel setNameFieldStringValue:@"OpenKeyMacro"];
-    [openPanel makeKeyAndOrderFront:nil];
-    [openPanel setLevel:NSStatusWindowLevel];
-    if ([openPanel runModal] == NSModalResponseOK ) {
-        NSAlert* alert = [[NSAlert alloc] init];
-        [alert setInformativeText:@"Bạn có muốn giữ lại các dữ liệu hiện tại không?"];
-        [alert addButtonWithTitle:@"Có"];
-        [alert addButtonWithTitle:@"Không"];
-        [alert setMessageText:@"Dữ liệu gõ tắt"];
-        [alert setAlertStyle:NSCriticalAlertStyle];
-        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-            readFromFile(openPanel.URL.path.UTF8String, returnCode == 1000);
-            [self saveAndReload];
-        }];
+- (IBAction)onImportFromMacOSTextReplacement:(id)sender {
+    NSDictionary<NSString*, NSString*>* replacements = [NSSpellChecker sharedSpellChecker].userReplacementsDictionary;
+    if (replacements.count == 0) {
+        [self showMessage:@"Không tìm thấy dữ liệu Text Replacement nào trên macOS.\nBạn có thể thêm ở System Settings > Keyboard > Text Replacements."];
+        return;
     }
-}
 
-- (IBAction)onExportToFile:(id)sender {
-    NSSavePanel* savePanel = [NSSavePanel savePanel];
-    savePanel.canCreateDirectories = YES;
-    [savePanel setMessage:@"Chọn nơi lưu dữ liệu gõ tắt"];
-    [savePanel setTitle:@"Chọn nơi lưu dữ liệu gõ tắt"];
-    [savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"txt", nil]];
-    [savePanel setExtensionHidden:NO];
-    [savePanel setNameFieldStringValue:@"OpenKeyMacro"];
-    if ([savePanel runModal] == NSModalResponseOK) {
-        saveToFile(savePanel.URL.path.UTF8String);
-    }
+    NSAlert* alert = [[NSAlert alloc] init];
+    [alert setMessageText:@"Nhập từ Text Replacement macOS"];
+    [alert setInformativeText:[NSString stringWithFormat:@"Tìm thấy %lu mục trong Text Replacement của macOS (đồng bộ qua iCloud). Bạn có muốn nhập vào danh sách gõ tắt không?\n\nCác từ trùng tên sẽ được cập nhật theo nội dung mới.", (unsigned long)replacements.count]];
+    [alert addButtonWithTitle:@"Nhập"];
+    [alert addButtonWithTitle:@"Huỷ"];
+    [alert setAlertStyle:NSInformationalAlertStyle];
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode != NSAlertFirstButtonReturn) {
+            return;
+        }
+        int importedCount = 0;
+        for (NSString* key in replacements) {
+            string text = [key UTF8String];
+            string content = [replacements[key] UTF8String];
+            if (text.empty() || content.empty()) {
+                continue;
+            }
+            if (addMacro(text, content)) {
+                importedCount++;
+            }
+        }
+        [self saveAndReload];
+        [self showMessage:[NSString stringWithFormat:@"Đã nhập %d mục gõ tắt từ macOS.", importedCount]];
+    }];
 }
 
 - (void)showMessage:(NSString*)msg {
