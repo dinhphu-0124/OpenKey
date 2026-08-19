@@ -1,5 +1,5 @@
 ------
-# DinhPhuu_KEY — Bộ gõ Tiếng Việt cho macOS (v1.0.0)
+# DinhPhuu_KEY - Bộ gõ Tiếng Việt cho macOS (v1.0.0)
 
 Bản OpenKey đã được DinhPhuu tùy chỉnh, sửa lỗi và đóng gói lại để chạy ổn định trên các phiên bản macOS mới.
 
