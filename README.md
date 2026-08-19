@@ -18,14 +18,14 @@ DinhPhuu_KEY/
     ├── CHANGELOG_OpenKey_goc.md    <- Changelog gốc của OpenKey
     ├── version.json
     └── Sources/OpenKey/
-        ├── engine/          <- Engine gõ tiếng Việt (C++, dùng chung mọi nền tảng)
-        ├── macOS/           <- Project Xcode cho macOS (đã tùy chỉnh)
-        │   ├── OpenKey.xcodeproj
-        │   ├── ModernKey/           <- App chính (OpenKey.app)
-        │   └── OpenKeyHelper/       <- Helper chạy nền (khởi động cùng máy)
-        ├── win32/           <- Bản Windows (không dùng ở đây)
-        └── linux/
+        ├── engine/          <- Engine gõ tiếng Việt (C++)
+        └── macOS/           <- Project Xcode cho macOS (đã tùy chỉnh)
+            ├── OpenKey.xcodeproj
+            ├── ModernKey/           <- App chính (OpenKey.app)
+            └── OpenKeyHelper/       <- Helper chạy nền (khởi động cùng máy)
 ```
+
+Dự án này chỉ còn tối ưu cho **macOS**. Phần mã nguồn Windows/Linux của bản OpenKey gốc đã được gỡ bỏ khỏi bản này.
 
 ## 2. Những gì bản này khác với OpenKey gốc
 
@@ -44,6 +44,7 @@ DinhPhuu_KEY/
 - Các tính năng tự động ghi nhớ/tạm tắt theo từng ứng dụng (chế độ gõ, bảng mã, tạm tắt OpenKey) — gây khó kiểm soát, người dùng tự chuyển khi cần thay vì để app tự động đổi ngầm.
 - Tính năng sửa lỗi gợi ý trên trình duyệt Chromium/Excel, tính năng gửi từng phím.
 - `OpenKeyUpdate` (tự kiểm tra bản cập nhật) không được build cùng do thiếu resource gốc — không ảnh hưởng đến việc gõ tiếng Việt.
+- Toàn bộ mã nguồn Windows (`win32/`) và Linux (`linux/`) của bản gốc — dự án này chỉ tối ưu và duy trì cho macOS.
 
 **Đánh đổi cần biết:** vì OpenKey không đọc nội dung ô văn bản để biết ô đó có đang trống hay không, tính năng tự viết hoa dùng "click chuột" làm tín hiệu bắt đầu phiên gõ mới. Hệ quả: nếu bạn click vào **giữa** một đoạn văn bản có sẵn để sửa (không phải ô trống), ký tự gõ tiếp theo cũng sẽ bị viết hoa nhầm.
 

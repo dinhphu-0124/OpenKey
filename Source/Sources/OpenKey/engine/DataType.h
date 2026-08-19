@@ -13,9 +13,6 @@
 
 using namespace std;
 
-//#define V_PLATFORM_MAC              1
-//#define V_PLATFORM_WINDOWS          2
-
 #define MAX_BUFF 32
 
 enum vKeyEvent {
@@ -79,13 +76,7 @@ struct vKeyHookState {
     vector<Uint32> macroData; //used for macro function; it is keycode data
 };
 
-#ifdef LINUX
-#include "platforms/linux.h"
-#elif _WIN32
-#include "platforms/win32.h"
-#else
 #include "platforms/mac.h"
-#endif
 
 //internal engine data
 #define CAPS_MASK                               0x10000
