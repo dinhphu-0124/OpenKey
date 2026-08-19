@@ -214,7 +214,7 @@ Nếu bạn không muốn sử dụng ứng dụng nữa và muốn dọn dẹp 
 
 ---
 
-## 3. Giấy phép — GPLv3
+## Giấy phép — GPLv3
 
 OpenKey phát hành theo giấy phép **GPLv3**
 - Dựa trên: <https://github.com/tuyenvm/OpenKey> - tác giả gốc: Tuyền Mai và cộng đồng OpenKey (GPLv3).
