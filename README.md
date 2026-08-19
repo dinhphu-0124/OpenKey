@@ -15,7 +15,7 @@ DinhPhuu_KEY/
 │   └── OpenKey.app         <- Bản đã build sẵn, ký chữ ký thật, chạy được ngay
 └── Source/
     ├── LICENSE                     <- Giấy phép GPLv3 (giữ nguyên từ bản gốc)
-    ├── CHANGELOG_OpenKey_goc.md    <- Changelog gốc của OpenKey
+    ├── CHANGELOG.md                <- Lịch sử thay đổi của bản này
     ├── version.json
     └── Sources/OpenKey/
         ├── engine/          <- Engine gõ tiếng Việt (C++)

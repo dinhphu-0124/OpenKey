@@ -1,10 +1,3 @@
-//
-//  OpenKey.m
-//  OpenKey
-//
-//  Created by Tuyen on 1/18/19.
-//  Copyright © 2019 Tuyen Mai. All rights reserved.
-//
 #import "AppDelegate.h"
 #import "Engine.h"
 #import "ViewController.h"

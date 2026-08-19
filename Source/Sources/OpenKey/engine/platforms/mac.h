@@ -1,8 +1,3 @@
-//
-// mac.h
-// Created by Tuyen Mai on 8/21/19.
-// Copyright (c) 2019 Tuyen Mai. All rights reserved.
-//
 
 
 #ifndef OPENKEY_MAC_H

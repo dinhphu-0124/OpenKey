@@ -1,10 +1,3 @@
-//
-//  Engine.h
-//  OpenKey
-//
-//  Created by Tuyen on 1/18/19.
-//  Copyright © 2019 Tuyen Mai. All rights reserved.
-//
 
 #ifndef Engine_h
 #define Engine_h

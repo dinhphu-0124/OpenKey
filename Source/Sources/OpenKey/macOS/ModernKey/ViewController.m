@@ -1,10 +1,3 @@
-//
-//  ViewController.m
-//  ModernKey
-//
-//  Created by Tuyen on 1/18/19.
-//  Copyright © 2019 Tuyen Mai. All rights reserved.
-//
 
 #import "ViewController.h"
 #import "AppDelegate.h"

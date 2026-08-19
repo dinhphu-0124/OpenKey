@@ -1,10 +1,3 @@
-//
-//  SmartSwitchKey.h
-//  OpenKey
-//
-//  Created by Tuyen on 8/13/19.
-//  Copyright © 2019 Tuyen Mai. All rights reserved.
-//
 
 #ifndef SmartSwitchKey_h
 #define SmartSwitchKey_h

@@ -1,10 +1,3 @@
-//
-//  AboutViewController.m
-//  OpenKey
-//
-//  Created by Tuyen on 2/15/19.
-//  Copyright © 2019 Tuyen Mai. All rights reserved.
-//
 
 #import "AboutViewController.h"
 #import "OpenKeyManager.h"

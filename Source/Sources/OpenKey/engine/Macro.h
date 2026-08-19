@@ -1,10 +1,3 @@
-//
-//  Macro.h
-//  OpenKey
-//
-//  Created by Tuyen on 8/4/19.
-//  Copyright © 2019 Tuyen Mai. All rights reserved.
-//
 
 #ifndef Macro_h
 #define Macro_h

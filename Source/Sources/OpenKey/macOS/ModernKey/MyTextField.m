@@ -1,10 +1,3 @@
-//
-//  MyTextField.m
-//  OpenKey
-//
-//  Created by Tuyen on 7/30/19.
-//  Copyright © 2019 Tuyen Mai. All rights reserved.
-//
 
 #import "MyTextField.h"
 #include <Carbon/Carbon.h>
