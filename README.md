@@ -69,12 +69,19 @@ App build xong nằm ở: `/tmp/openkey_build/Build/Products/Release/OpenKey.app
 
 ## 4. Cách cài đặt / dùng ngay (không cần build)
 
-1. Copy `App/OpenKey.app` vào thư mục `Applications` của máy nhận.
-2. Mở app (double-click). macOS sẽ hiện cảnh báo "không rõ nhà phát triển" vì app không được Apple công chứng (notarize) — chuột phải vào app > **Open** (chỉ cần làm 1 lần).
-3. Hộp thoại "OpenKey cần bạn cấp quyền để có thể hoạt động!" hiện ra → bấm **Cấp quyền**.
-4. Vào System Settings > Privacy & Security > Accessibility → bật công tắc **OpenKey**.
-5. Mở lại `OpenKey.app` lần nữa.
-6. Nếu tiến trình nền `OpenKeyHelper` chưa tự chạy: vào OpenKey, tắt rồi bật lại tùy chọn "Khởi động cùng macOS" trong mục Hệ thống để kích hoạt.
+1. Tải file `OpenKey.dmg` ở mục [Releases](https://github.com/dinhphu-0124/OpenKey/releases) về máy.
+2. Mở file `OpenKey.dmg`.
+3. Trong cửa sổ hiện ra, kéo biểu tượng `OpenKey` vào thư mục `Applications`.
+4. Mở thư mục `Applications` và double-click `OpenKey`.
+5. Nếu macOS hiện cảnh báo "OpenKey không thể mở vì nhà phát triển không thể được xác minh" (vì app không được Apple công chứng/notarize) → chuột phải vào `OpenKey` → chọn **Open** → chọn **Open** một lần nữa. Chỉ cần làm bước này lần đầu.
+6. Hộp thoại "OpenKey cần bạn cấp quyền để có thể hoạt động!" hiện ra → bấm **Cấp quyền**.
+7. Vào System Settings → Privacy & Security → Accessibility → tìm **OpenKey** → bật công tắc.
+8. Mở lại `OpenKey`.
+9. Nếu tiến trình nền `OpenKeyHelper` chưa tự chạy: mở **OpenKey** → vào mục **Hệ thống** → tắt rồi bật lại tùy chọn **Khởi động cùng macOS**.
+
+Sau khi hoàn tất, OpenKey có thể được sử dụng bình thường.
+
+> `App/OpenKey.app` trong repo vẫn được giữ nguyên cho ai muốn build hoặc kiểm tra thủ công; file `.dmg` trên trang Releases được đóng gói tự động từ đúng file này mỗi khi có bản phát hành mới (xem `.github/workflows/release.yml`).
 
 ## 5. Giấy phép — GPLv3
 
