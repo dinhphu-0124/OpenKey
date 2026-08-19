@@ -205,6 +205,18 @@ void RequestNewSession() {
   // does not make the next character uppercase.
 }
 
+void RequestNewSessionOnAppSwitch() {
+  // Switching to a different app means the user is very likely starting a
+  // fresh context (e.g. typing the first message in a new Zalo/Messenger
+  // chat), so re-arm auto-capitalize for the next character. Unlike a plain
+  // mouse click (which must NOT force capitalize), this arm is allowed to
+  // survive the very next click/control-key too, since clicking into the
+  // message box right after switching apps is normal (see
+  // notifyAppSwitched in the engine).
+  RequestNewSession();
+  notifyAppSwitched();
+}
+
 NSString *ConvertUtil(NSString *str) {
   return [NSString stringWithUTF8String:convertUtil([str UTF8String]).c_str()];
 }

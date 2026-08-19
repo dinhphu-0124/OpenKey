@@ -12,6 +12,7 @@ AppDelegate* appDelegate;
 extern ViewController* viewController;
 extern void OnTableCodeChange(void);
 extern void RequestNewSession(void);
+extern void RequestNewSessionOnAppSwitch(void);
 
 //see document in Engine.h
 int vLanguage = 1;
@@ -527,6 +528,12 @@ extern bool convertToolDontAlertWhenCompleted;
     RequestNewSession();
 }
 
+-(void)receiveActiveAppChanged: (NSNotification*)note {
+    // The user switched to a different app (e.g. opened Zalo/Messenger to
+    // type a new message) -> re-arm auto-capitalize for the first character.
+    RequestNewSessionOnAppSwitch();
+}
+
 -(void)registerSupportedNotification {
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
                                                            selector: @selector(receiveWakeNote:)
@@ -539,5 +546,9 @@ extern bool convertToolDontAlertWhenCompleted;
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
                                                            selector: @selector(receiveActiveSpaceChanged:)
                                                                name: NSWorkspaceActiveSpaceDidChangeNotification object: NULL];
+
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                           selector: @selector(receiveActiveAppChanged:)
+                                                               name: NSWorkspaceDidActivateApplicationNotification object: NULL];
 }
 @end

@@ -101,6 +101,7 @@ static bool _isCaps = false;
 static int _spaceCount = 0; //add: July 30th, 2019
 static bool _hasHandledMacro = false; //for macro flag August 9th, 2019
 static Byte _upperCaseStatus = 0; //for Write upper case for the first letter; 2: will upper case
+static bool _appJustSwitched = false; //true right after notifyAppSwitched(), consumed by the next word-break event
 static bool _isCharKeyCode;
 static vector<Uint32> _specialChar;
 static bool _useSpellCheckingBefore;
@@ -133,6 +134,11 @@ void* vKeyInit() {
 
 void requestCapitalizeNextChar() {
     _upperCaseStatus = vUpperCaseFirstChar ? 2 : 0;
+}
+
+void notifyAppSwitched() {
+    _appJustSwitched = true;
+    requestCapitalizeNextChar();
 }
 
 bool isWordBreak(const vKeyEvent& event, const vKeyEventState& state, const Uint16& data) {
@@ -1369,10 +1375,11 @@ void vKeyHandleEvent(const vKeyEvent& event,
         if (vUpperCaseFirstChar) {
             if (data == KEY_DOT || (data == KEY_SLASH && _isCaps) || (data == KEY_1 && _isCaps))
                 _upperCaseStatus = 1;
-            else if (data == KEY_ENTER || data == KEY_RETURN)
+            else if (data == KEY_ENTER || data == KEY_RETURN || _appJustSwitched)
                 _upperCaseStatus = 2;
             else
                 _upperCaseStatus = 0;
+            _appJustSwitched = false;
         }
     } else if (data == KEY_SPACE) {
         if (!tempDisableKey && vCheckSpelling) {
@@ -1528,6 +1535,7 @@ void vKeyHandleEvent(const vKeyEvent& event,
                 upperCaseFirstCharacter();
             }
             _upperCaseStatus = 0;
+            _appJustSwitched = false;
         }
         
         //case [ ]

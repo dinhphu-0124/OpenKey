@@ -187,6 +187,15 @@ void* vKeyInit();
 void requestCapitalizeNextChar();
 
 /**
+ * Call this when the front app changes (the user switched to a different
+ * app, e.g. to type a new message in Zalo/Messenger). Like
+ * requestCapitalizeNextChar(), but the arm also survives the very next
+ * mouse click or control-key combo (e.g. clicking into the message box
+ * right after switching), which would otherwise cancel it immediately.
+ */
+void notifyAppSwitched();
+
+/**
  * Convert engine character to real character
  */
 Uint32 getCharacterCode(const Uint32& data);
